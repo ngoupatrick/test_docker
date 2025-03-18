@@ -9,4 +9,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+      - name: build image
+        run: docker build ./backend_un/ -t docker.io/ditdakar/backend_un:1.0
+      - name: push image to docker hub
+        run: |
+          docker push docker.io/ditdakar/backend_un:1.0
         
