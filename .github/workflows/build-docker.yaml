@@ -13,6 +13,6 @@ jobs:
         run: docker build ./backend_un/ -t $DOCKERHUB_BACKEND_UN_REPO:$DOCKERHUB_BACKEND_UN_TAG
       - name: push image to docker hub
         run: |
-          docker login -u ${{ DOCKERHUB_USER }} -p ${{ DOCKERHUB_TOKEN }}
+          docker login -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker push $DOCKERHUB_BACKEND_UN_REPO:$DOCKERHUB_BACKEND_UN_TAG
         
