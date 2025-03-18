@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  backend_un:
+    #image: ${BACKEND_UN_BUILD_IMAGE_NAME}:${BACKEND_UN_BUILD_IMAGE_TAG}
+    image: ${BACKEND_UN_SERVER_IMAGE_NAME}/${BACKEND_UN_REPO_NAME}/${BACKEND_UN_BUILD_IMAGE_NAME}:${BACKEND_UN_BUILD_IMAGE_TAG}
+    container_name: backend_un
+    hostname: backend_un
+    # don't go to docker.io to pull image
+    pull_policy: never
+    
+    build:
+      context: ./backend_un
+      dockerfile: Dockerfile
+      target: runner
+
+    # "./backend_un/.env" going to be linux env vars (when running containers) for app
+    # but the .env in this same folder will be used by default for this file
+    env_file:
+      - ./backend_un/.env
+
+    volumes:
+      - share_data:/partage
+
+    ports:
+      - "${BACKEND_UN_EXPOSE_PORT}:${BACKEND_UN_PORT}"
+
+    networks:
+      - app-network
+      
+volumes:
+  share_data:
+    driver: local # Define the driver and options under the volume name
+    driver_opts:
+      type: none
+      device: C:\Users\ngoun\Downloads\music\docker_volume\partage_nifi\partage
+      o: bind
+
+networks:
+  app-network:
+    driver: bridge
