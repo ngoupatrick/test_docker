@@ -10,8 +10,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: build image
-        run: docker build ./backend_un/ -t docker.io/ditdakar/backend_un:1.0
+        run: docker build ./backend_un/ -t $DOCKERHUB_BACKEND_UN_REPO:$DOCKERHUB_BACKEND_UN_TAG
       - name: push image to docker hub
         run: |
-          docker push docker.io/ditdakar/backend_un:1.0
+          docker login -u ${{ DOCKERHUB_USER }} -p ${{ DOCKERHUB_TOKEN }}
+          docker push $DOCKERHUB_BACKEND_UN_REPO:$DOCKERHUB_BACKEND_UN_TAG
         
