@@ -7,7 +7,7 @@ services:
     container_name: backend_un
     hostname: backend_un
     # don't go to docker.io to pull image
-    pull_policy: never
+    #pull_policy: never
     
     build:
       context: ./backend_un
